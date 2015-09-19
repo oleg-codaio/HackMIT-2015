@@ -9,4 +9,8 @@ with open('training_data.json') as data_file:
     concepts = data['concepts']
     for concept in concepts:
         for url in concepts[concept]['positive_urls']:
-            print url + "," + concept
+            print concept + " POSITIVE: " + url
+            clarifai.positive(url, concept)
+
+        for url in concepts[concept]['negative_urls']:
+            clarifai.negative(url, concept)
