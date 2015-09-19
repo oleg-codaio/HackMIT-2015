@@ -1,11 +1,9 @@
 var dialogsModule = require("ui/dialogs");
 var frameModule = require("ui/frame");
+var viewModule = require("ui/core/view");
 var UserViewModel = require("../../shared/view-models/user-view-model");
 
-var user = new UserViewModel({
-	email: "tj.vantoll@gmail.com",
-	password: "password"
-});
+var user = new UserViewModel();
 
 exports.loaded = function(args) {
 	var page = args.object;
@@ -23,6 +21,10 @@ exports.loaded = function(args) {
 };
 
 exports.signIn = function() {
+	console.log(user.get("email"));
+	console.log(user.get("password"));
+
+	/*
 	user.login()
 		.then(function() {
 			frameModule.topmost().navigate("views/list/list");
@@ -32,7 +34,7 @@ exports.signIn = function() {
 				message: "Unfortunately we could not find your account.",
 				okButtonText: "OK"
 			});
-		});
+		}); */
 };
 
 exports.register = function() {
