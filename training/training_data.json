@@ -1,0 +1,25 @@
+{
+	"concepts": {
+		"apple": {
+			"positive_urls": [
+				"http://thekissters.files.wordpress.com/2010/09/pink_lady_apple21.jpg",
+				"https://upload.wikimedia.org/wikipedia/en/f/fc/Braeburn2008.jpg",
+				"http://www.hudsonproduce.com/images/fruitimages/apples-fuji.png",
+				"http://www.mouneyracfreres.com/img/produits/cat_c1_grannysmith_img.png",
+				"http://unitedapplesales.com/wp-content/uploads/2013/07/GrannySmith.png",
+				"http://appmuse.com/wp-content/uploads/2011/05/Apple.jpg",
+				"http://img07.deviantart.net/f497/i/2008/164/c/2/apple_top_view_by_aisac.jpg",
+				"http://inquiline.files.wordpress.com/2011/11/top-view-apple.jpg",
+				"http://tcjewfolk.com/wp-content/uploads//2010/12/AppleTop.jpg",
+				"http://www.tanninimages.com/lightbox/gallery/Apples/SH0800027FDFA.jpg",
+				"https://clouddragon.wordpress.com/files/2009/06/red-apple.jpg",
+				"http://ecodynamiclivingsolutions.com/wp-content/uploads/2011/10/granite_apple.jpg",
+				"http://l1.alamy.com/thumbs/4/16a5754f-3495-407d-a40b-a09b2c941eeb/AHFEDF.jpg",
+				"http://www.coxtechnic.com/data/uploads/bruise%20apple.jpg",
+				"https://parablesbymish.files.wordpress.com/2014/04/bruised-apple.jpg"
+			],
+			"negative_urls": [
+			]
+		}
+	}
+}
