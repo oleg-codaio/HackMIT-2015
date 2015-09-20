@@ -4,11 +4,6 @@ var clarifai = require('./clarifai')
 
 // Init Express
 var express = require('express');
-var multer = require('multer');
-var upload = multer({
-	dest: 'uploads'
-});
-
 var app = express();
 
 // Root route (ha).
@@ -25,8 +20,8 @@ app.get('/login/:username', function (req, res) {
 
 // Post a single item.
 // req header must include valid user ID.
-app.post('/items', upload.single('picture'), function (req, res) {
-
+app.post('/items', function (req, res) {
+	clarifai.handleImageUpload(req, res);
 });
 
 // Delete a single item.
