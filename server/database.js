@@ -97,7 +97,7 @@ exports.addItem = function (userID, itemID, name, expirationDate) {
 	items.insert({id: userID, 
 		itemID: Math.floor(Math.random() * 1000000) + 1000000,
 		name: name,
-		expirationDate: 1442731820889 + dur.getTimeToExpiration(name) 
+		expirationDate: Date.now() + dur.getTimeToExpiration(name) 
 	})
 }
 
