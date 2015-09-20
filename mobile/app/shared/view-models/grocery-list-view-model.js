@@ -17,10 +17,11 @@ function GroceryListViewModel(items) {
 		.then(function(response) {
 			return response.json();
 		}).then(function(data) {
-			data.forEach(function(item) {
-				item.color_class = _getColorClass(item.expiration_date);
-				item.expiration_string = _getExpirationString(item.expiration_date);
-				viewModel.push(item);
+			data.sort(function(a, b) { return a.expiration_date - b.expiration_date;})
+                .forEach(function(item) {
+                    item.color_class = _getColorClass(item.expiration_date);
+                    item.expiration_string = _getExpirationString(item.expiration_date);
+                    viewModel.push(item);
 			});
 		});
     };
