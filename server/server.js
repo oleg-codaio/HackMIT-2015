@@ -11,7 +11,7 @@ var app = express();
 
 // Public directory for image upload
 app.use(express.static(constants.imageDir));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 
 // Root route (ha).
@@ -38,15 +38,16 @@ app.post('/items', function (req, res) {
 
 // Delete a single item.
 // req header must include valid user ID. 
-app.delete('/items', function (req, res) {
-	db.deleteItem(req.params.id, req.params.itemid, res);
+app.delete('/items/:itemid', function (req, res) {
+	db.deleteItem(parseInt(req.header('X-User-Id'), 10), parseInt(req.params.itemid, 10), res);
 });
 
 
 // Get all items.
 // req header must include valid user ID.
 app.get('/items', function (req, res) {
-	db.getItems(req.id, res);
+	console.log(req.header('X-User-Id'))
+	db.getItems(req.header('X-User-Id'), res);
 });
 
 // Mongo is running on: http://localhost:27017

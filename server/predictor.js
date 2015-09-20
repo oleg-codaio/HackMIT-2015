@@ -16,18 +16,21 @@ var imageCount = 0;
 
 
 exports.handleImageUpload = function (req, res) {
+console.log("starting")
   var imageName = imageCount + '.jpg';
   var imagePath = constants.imageDir + '/images/' + imageName;
   imageCount++;
 
   var decodedImage = new Buffer(req.body.image, 'base64');
+console.log("writing")
   fs.writeFileSync(imagePath, decodedImage);
 
+console.log("wrote")
 
   // We are hardcoding the image directory. Bad.
-	classifyImage('http://104.131.45.245/images' + imageName, function(matchData) {
+	classifyImage('http://104.131.45.245/images/' + imageName, function(matchData) {
     // Delete our temp stored image
-    fs.unlink(imagePath);
+    //fs.unlink(imagePath);
 
     if (matchData === null) {
       res.status(400).send({ message: 'Cannot recognize image' });
@@ -39,7 +42,7 @@ exports.handleImageUpload = function (req, res) {
       category: matchData.category
     };
 
-    // TODO Add item to database
+db.addItem(12131231, 1, item.category, item.expirationDate);
     res.send(item);
   });
 }

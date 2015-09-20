@@ -28,11 +28,11 @@ MongoClient.connect("mongodb://localhost:27017/exampleDb", function (err, db) {
 
 // Create collections.
 function initCollections () {
-	database.collection('Users', function (err, collection) {
+	database.collection('users', function (err, collection) {
 		if (err) throw err;
 		users = collection;
 	});
-	database.collection('Items', function (err, collection) {
+	database.collection('items', function (err, collection) {
 		if (err) throw err;
 		items = collection;
 	});
@@ -42,8 +42,11 @@ function initCollections () {
 // Client sends a username. We should send back at User ID.
 exports.getIDForUsername = function (username, res) {
 	users.find({username: username}).toArray(function (err, data) {
+res.send({id:12131231});
+return;
 		if (err) throw err;
 		// if the result size is zero, generate and add and ID.
+		console.log(data);
 		if (data.length == 0) {
 			var id = Math.floor(Math.random() * 1000000) + 1000000;
 			users.insert({username: username, id: id});
@@ -65,7 +68,7 @@ exports.getIDForUsername = function (username, res) {
 // Get Items.
 // Gets all items out of the database for a given user ID.
 exports.getItems = function (id, res) {
-	items.find({id: id}).sort({ expirationDate: -1 }).toArray(function (err, data) {
+	items.find({id: parseInt(id, 10)}).sort({ expirationDate: -1 }).toArray(function (err, data) {
 		if (err) throw err;
 		res.send(data);
 	});
@@ -74,7 +77,8 @@ exports.getItems = function (id, res) {
 // Delete Item.
 // Deletes an item with a given ID from a user with the same ID.
 exports.deleteItem = function (id, itemID, res) {
-	items.remove({id: id, item_id: itemID});
+console.log(id + ' ' + itemID)
+	items.remove({id: id, itemID: itemID});
 	res.sendStatus(200);
 }
 
@@ -84,7 +88,7 @@ exports.addItem = function (userID, itemID, name, expirationDate) {
 	items.insert({id: userID, 
 		itemID: Math.floor(Math.random() * 1000000) + 1000000,
 		name: name,
-		expirationDate: Date.now() + dur.getTimeToExpiration(name) 
+		expiration_date:  expirationDate
 	})
 }
 

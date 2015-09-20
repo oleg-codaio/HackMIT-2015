@@ -183,7 +183,7 @@ Clarifai.prototype.predict_top = function(url, iCallback){
         url: 'https://api-alpha.clarifai.com/v1/curator/models/' + this.nameSpace + '/predict',
 	method: 'POST',
 	json: true,
-	body: {urls: ['http://www.clarifai.com/static/img_ours/metro-north.jpg']},
+	body: {urls: [url]},
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.accessToken
@@ -224,10 +224,17 @@ Clarifai.prototype.predict_top = function(url, iCallback){
 	function callbackFun(error, response, chunk) {
 	    if (!error) {
 		    json = chunk; //JSON.parse(chunk);
-			console.log(json.urls[0].predictions[0])
 
+var bestIndex = 0;
+var bestScore = 0;
 		    if(json.status.status === "OK"){
-			var result = json.urls[0].predictions[0];
+			for(var i = 0; i < json.urls[0].predictions.length; i++) {
+	if(json.urls[0].predictions[i].score > bestScore) {
+bestIndex = i;
+bestScore = json.urls[0].predictions[i].score;
+}
+}
+			var result = json.urls[0].predictions[bestIndex];
 			result.success = true;
 			iCallback.call(this, result);
 			return;
