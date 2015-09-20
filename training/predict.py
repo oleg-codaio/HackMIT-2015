@@ -3,4 +3,4 @@ from lib.clarifai_basic import ClarifaiCustomModel
 
 clarifai = ClarifaiCustomModel()
 
-print clarifai.predict(sys.argv[1], sys.argv[2])
+print clarifai.predict_all(sys.argv[1])

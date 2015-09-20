@@ -5,9 +5,9 @@ var constants = require('./constants');
 // Yes, this is our access token. Go ahead, use it.
 var Clarifai = require('./clarifai');
 var clarifai = new Clarifai({
-  'accessToken': 'o132JLXLqOow4oUksuvQYZEPi3SRtN',
-  'collectionId': 'hackmit',
-  'nameSpace': 'hackathon'
+  accessToken: 'o132JLXLqOow4oUksuvQYZEPi3SRtN',
+  collectionId: 'hackmit',
+  nameSpace: 'hackathon'
 });
 
 var ACCEPT_THRESHOLD = 0.65;
@@ -39,32 +39,21 @@ exports.handleImageUpload = function (req, res) {
 // and passes it to callback in an object with fields score and category.
 // Passes null if no matching category found with score > threshold.
 var classifyImage = function (imageUrl, callback) {
-  // Stores objects for each image / category with results of prediction
-  var resultsCount = 0;
-  var currentBest = null;
+  clarifai.predict(imageUrl, function(obj) {
+    var result = null;
 
-  var categories = Object.keys(constants.categories);
+    if (obj.success) {
+      result = {
+        score: obj.score,
+        category: obj.cname
+      };
+    }
 
-  // Slow, but api doesn't really provide any better ways for
-  // handling this currently
-  for (var i = 0; i < categories.length; i++) {
-    clarifai.predict(imageUrl, categories[i], function(obj) {
-      resultsCount++;
-
-      if (obj.success) {
-        var result = {
-          score: obj.score,
-          category: categories[i]
-        };
-
-        if (result.score >= ACCEPT_THRESHOLD && (!currentBest || result.score > currentBest.score)) {
-          currentBest = result;
-        }
-      }
-
-      if (resultsCount == categories.length) {
-        callback(currentBest);
-      }
-    });
-  }
+    if (result && result.score >= ACCEPT_THRESHOLD) {
+      callback(result);
+    }
+    else {
+      callback(null);
+    }
+  });
 }
