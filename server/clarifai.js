@@ -319,4 +319,4 @@ Clarifai.prototype.log = function(obj){
     }
 }
 
-Module.exports = Clarifai;
+module.exports = Clarifai;
