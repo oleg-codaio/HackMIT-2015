@@ -53,13 +53,12 @@ function GroceryListViewModel(items) {
 
             console.log(viewModel);
 
-
             viewModel.getList();
 		});
     };
 
     viewModel.removeFromList = function(index) {
-		return fetch(config.apiUrl + "item?id=" + viewModel.getItem(index).id, {
+		return fetch(config.apiUrl + "items/" + viewModel.getItem(index).itemID, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -71,6 +70,7 @@ function GroceryListViewModel(items) {
 			return response.json();
 		}).then(function() {
             viewModel.splice(index, 1);
+            viewModel.getList();
 		});
     };
 
