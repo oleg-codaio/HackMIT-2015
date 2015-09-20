@@ -22,7 +22,7 @@ function Clarifai(options){
     }
     this.collectionId = options.collectionId || 'default';
     this.nameSpace = options.nameSpace || 'default';
-    this.createCollection(this.collectionId);
+    // this.createCollection(this.collectionId);
 }
 
 // make sure we got what we need in constructor

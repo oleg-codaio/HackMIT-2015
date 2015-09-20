@@ -6,7 +6,8 @@ var constants = require('./constants');
 var Clarifai = require('./clarifai');
 var clarifai = new Clarifai({
   'accessToken': 'o132JLXLqOow4oUksuvQYZEPi3SRtN',
-  'collectionId': 'hackmit'
+  'collectionId': 'hackmit',
+  'nameSpace': 'hackathon'
 });
 
 var ACCEPT_THRESHOLD = 0.65;
