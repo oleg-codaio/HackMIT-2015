@@ -69,7 +69,6 @@ function GroceryListViewModel(items) {
 		.then(function(response) {
 			return response.json();
 		}).then(function() {
-            viewModel.splice(index, 1);
             viewModel.getList();
 		});
     };
