@@ -28,5 +28,6 @@ function getCategoryFromImage(imageUrl, callback) {
       if (results.length == categories.length) {
         callback(currentBest);
       }
+    }
   }
 }

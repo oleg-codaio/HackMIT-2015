@@ -1,6 +1,5 @@
 // Link Files
 var clarifai = require('./clarifai');
-var dur = require('./durability');
 
 // Retrieve MongoClient
 var MongoClient = require('mongodb').MongoClient;
@@ -17,7 +16,7 @@ var users;
 var items;
 /* Items
 - id	
-- item_id
+- item_id	
 - name		
 - expiration_date (ms)
 */
@@ -28,7 +27,7 @@ var durability;
 */
 
 // Connect to Mongo Database.
-MongoClient.connect("mongodb://localhost:27017/exampleDb", function (err, db) {
+MongoClient.connect("mongodb://localhost:27017/exampleDb", function(err, db) {
 	if(err) throw err;
 	console.log("Database connection successful.");
 	database = db;
@@ -37,15 +36,15 @@ MongoClient.connect("mongodb://localhost:27017/exampleDb", function (err, db) {
 
 // Create collections.
 function initCollections () {
-	database.collection('Users', function (err, collection) {
+	database.collection('Users', function(err, collection) {
 		if (err) throw err;
 		users = collection;
 	});
-	database.collection('Items', function (err, collection) {
+	database.collection('Items', function(err, collection) {
 		if (err) throw err;
 		items = collection;
 	});
-	database.collection('Durability', function (err, collection) {
+	database.collection('Durability', function(err, collection) {
 		if (err) throw err;
 		durability = collection;
 	});
@@ -86,18 +85,21 @@ exports.getItems = function (id, res) {
 
 // Delete Item.
 // Deletes an item with a given ID from a user with the same ID.
-exports.deleteItem = function (id, itemID, res) {
+exports.deleteItem = function(id, itemID, res) {
 	items.remove({id: id, item_id: itemID});
 	res.sendStatus(200);
 }
 
 // Add Item.
 // Adds an item to the database.
-exports.addItem = function (userID, itemID, name, expirationDate) {
-	items.insert({id: userID, 
-		itemID: Math.floor(Math.random() * 1000000) + 1000000,
-		name: name,
-		expirationDate: 1442731820889 + dur.getTimeToExpiration(name) 
-	})
+// Should also decide what that item is.
+exports.addItem = function () {
+	// Upload the file to some URL. Get the URL.
+
+	// Process the file with the API.
+
+	// Post classification to the database.
+
+	// Return to the client what their file was classified as.
 }
 
