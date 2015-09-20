@@ -59,7 +59,7 @@ var classifyImage = function (imageUrl, callback) {
         }
       }
 
-      if (results.length == categories.length) {
+      if (resultsCount == categories.length) {
         callback(currentBest);
       }
     });
