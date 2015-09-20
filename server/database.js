@@ -1,6 +1,3 @@
-// Link Files
-var dur = require('./durability');
-
 // Retrieve MongoClient
 var MongoClient = require('mongodb').MongoClient;
 
@@ -20,11 +17,6 @@ var items;
 - name		
 - expiration_date (ms)
 */
-var durability;
-/* Durability
-- item_id	
-- durability (ms)
-*/
 
 // Connect to Mongo Database.
 MongoClient.connect("mongodb://localhost:27017/exampleDb", function (err, db) {
@@ -43,10 +35,6 @@ function initCollections () {
 	database.collection('Items', function (err, collection) {
 		if (err) throw err;
 		items = collection;
-	});
-	database.collection('Durability', function (err, collection) {
-		if (err) throw err;
-		durability = collection;
 	});
 }
 
