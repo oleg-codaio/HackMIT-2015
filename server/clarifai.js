@@ -1,5 +1,9 @@
+// Hackily fake jquery
 var $ = {};
-$.ajax = require('najax');
+$.ajax = function(options) {
+    return require('najax')(options).then(function(str) {
+        return JSON.parse(str);
+    })
 $.Deferred = require('jquery-deferred').Deferred;
 
 function Clarifai(options){
