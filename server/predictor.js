@@ -11,13 +11,23 @@ var clarifai = new Clarifai({
 });
 
 var ACCEPT_THRESHOLD = 0.65;
+// Ensures unique names for images
+var imageCount = 0;
 
 
 exports.handleImageUpload = function (req, res) {
+  var imageName = imageCount + '.jpg';
+  var imagePath = constants.imageDir + '/' + imageName;
+  imageCount++;
+
+  fs.writeFile(imagePath, req.body.image, 'base64', function(err) {
+    console.log(err);
+  });
+
   // We are hardcoding the image directory. Bad.
-	classifyImage('http://104.131.45.245/images' + req.file.filename, function(matchData) {
+	classifyImage('http://104.131.45.245/images' + imageName, function(matchData) {
     // Delete our temp stored image
-    fs.unlink(req.file.path);
+    fs.unlink(imagePath);
 
     if (matchData === null) {
       res.status(400).send({ message: 'Cannot recognize image' });
@@ -30,7 +40,6 @@ exports.handleImageUpload = function (req, res) {
     };
 
     // TODO Add item to database
-
     res.send(item);
   });
 }
@@ -39,7 +48,7 @@ exports.handleImageUpload = function (req, res) {
 // and passes it to callback in an object with fields score and category.
 // Passes null if no matching category found with score > threshold.
 var classifyImage = function (imageUrl, callback) {
-  clarifai.predict(imageUrl, function(obj) {
+  clarifai.predict_top(imageUrl, function(obj) {
     var result = null;
 
     if (obj.success) {

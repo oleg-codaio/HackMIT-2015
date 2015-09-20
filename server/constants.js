@@ -10,3 +10,4 @@ exports.expectedExpiration = function(name) {
 };
 
 exports.categories = categories;
+exports.imageDir = process.cwd() + '/public';
