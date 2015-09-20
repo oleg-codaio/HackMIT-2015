@@ -11,7 +11,7 @@ exports.loaded = function(args) {
 	// Change the color and style of the iOS UINavigationBar
 	if (page.ios) {
 		var navigationBar = frameModule.topmost().ios.controller.navigationBar;
-		navigationBar.barTintColor = UIColor.colorWithRedGreenBlueAlpha(0.011, 0.278, 0.576, 1);
+		navigationBar.barTintColor = UIColor.colorWithRedGreenBlueAlpha(0, 177/255, 200/255, 1);
 		navigationBar.titleTextAttributes = new NSDictionary([UIColor.whiteColor()], [NSForegroundColorAttributeName]);
 		navigationBar.barStyle = 1;
 		navigationBar.tintColor = UIColor.whiteColor();
@@ -21,10 +21,6 @@ exports.loaded = function(args) {
 };
 
 exports.signIn = function() {
-	console.log(user.get("email"));
-	console.log(user.get("password"));
-
-	/*
 	user.login()
 		.then(function() {
 			frameModule.topmost().navigate("views/list/list");
@@ -34,7 +30,7 @@ exports.signIn = function() {
 				message: "Unfortunately we could not find your account.",
 				okButtonText: "OK"
 			});
-		}); */
+		}); 
 };
 
 exports.register = function() {
