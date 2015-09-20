@@ -10,13 +10,14 @@ function GroceryListViewModel(items) {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-            	"X-User-Id": config.userId + ""
+            	"X-User-Id": "12132131"
 			}
 		})
 		.then(handleErrors)
 		.then(function(response) {
 			return response.json();
 		}).then(function(data) {
+			debugger;
 			data.sort(function(a, b) { return a.expiration_date - b.expiration_date;})
                 .forEach(function(item) {
                     item.color_class = _getColorClass(item.expiration_date);
@@ -27,8 +28,9 @@ function GroceryListViewModel(items) {
     };
 
     viewModel.addToList = function(picture) {
-    	console.log("begin");
-        encodedPicture = picture.toBase64String("jpg", 100);
+    	debugger;
+        encodedPicture = picture.toBase64String("jpeg", 100);
+        console.log(encodedPicture);
 
 		return fetch(config.apiUrl + "items", {
 			method: "POST",
@@ -37,12 +39,12 @@ function GroceryListViewModel(items) {
 			}),
 			headers: {
 				"Content-Type": "application/json",
-            	"X-User-Id": config.userId
+            	"X-User-Id": "12132131"
 			}
 		})
 		.then(handleErrors)
 		.then(function(response) {
-			console.log("asdf");
+			debugger;
 			return response.json();
 		}).then(function(data) {
             console.log("added picture: " + data);
@@ -59,7 +61,7 @@ function GroceryListViewModel(items) {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
-            	"X-User-Id": config.userId
+            	"X-User-Id": "12132131"
 			}
 		})
 		.then(handleErrors)
@@ -69,20 +71,6 @@ function GroceryListViewModel(items) {
             viewModel.splice(index, 1);
 		});
     };
-
-	viewModel.delete = function(index) {
-		return fetch(config.apiUrl + "Groceries/" + viewModel.getItem(index).id, {
-			method: "DELETE",
-			headers: {
-				"Authorization": "Bearer " + config.token,
-				"Content-Type": "application/json"
-			}
-		})
-		.then(handleErrors)
-		.then(function() {
-			viewModel.splice(index, 1);
-		});
-	};
 
 	viewModel.empty = function() {
 		while (viewModel.length) {

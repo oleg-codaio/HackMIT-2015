@@ -40,6 +40,7 @@ exports.add = function() {
         height: 500,
         keepAspectRatio: true
     }).then(function(picture) {
+    	debugger;
 	    console.log("Result is an image source instance");
 
         // Send to the server.
@@ -71,7 +72,8 @@ exports.add = function() {
 exports.share = function() {
 	var list = [];
 	for (var i = 0, size = groceryList.length; i < size ; i++) {
-		list.push(groceryList.getItem(i).name);
+		item = groceryList.getItem(i);
+		list.push(item.name + ": " + item.expiration_string);
 	}
 	var listString = list.join(", ").trim();
 	socialShare.shareText(listString);

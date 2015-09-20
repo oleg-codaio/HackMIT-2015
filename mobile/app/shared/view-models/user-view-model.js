@@ -23,9 +23,11 @@ function User(info) {
 		})
 		.then(handleErrors)
 		.then(function(response) {
+			debugger;
 			return response.json();
 		}).then(function(data) {
-            console.log("Logged in as user " + user + ": " + data);
+			debugger;
+            console.log("Logged in as user " + user + ": " + data.username);
 			config.userId = data.user;
 		});
 	};
