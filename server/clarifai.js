@@ -161,48 +161,54 @@ Clarifai.prototype.predict = function(url, concept, callback){
 
 // CUSTOM - Predicts most likely tag for image
 Clarifai.prototype.predict_top = function(url, callback){
-    var deferred = $.Deferred();
-    var data = {
-        "urls": [url]
-    }
-    $.ajax(
-        {
-            'type': 'POST',
-            'contentType': 'application/json; charset=utf-8',
-            'processData': false,
-            'data': JSON.stringify(data),
-            'url': this.baseUrl + 'curator/models/' + this.nameSpace + '/predict',
-            'headers': {
-                'Authorization': 'Bearer ' + this.accessToken
-            }
-        }  
-    ).then(
-        function(json){
+    var http = require('http');
+
+    var data = JSON.stringify({
+        urls: [url]
+    });
+
+    var options = {
+        host: this.baseUrl,
+        port: 80,
+        path: 'curator/models/' + this.nameSpace + '/predict',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(data)
+        }
+    };
+
+    var req = http.request(options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            json = JSON.parse(chunk);
+
             if(json.status.status === "OK"){
                 var result = json.urls[0].predictions[0];
                 result.success = true;
-                deferred.resolve(result);
-                if(callback){
-                    callback.call(this, result);
-                }
+                callback.call(this, result);
+                return;
             }
             if(json.status.status === 'ERROR'){
                 var result = {
                     'success': false
                 }
-                deferred.reject(result);
                 callback.call(this, result);
+                return;
             }
-        }.bind(this),
-        function(e){
+
+        });
+        
+        req.on('error', function(error) {
             var result = {
                 'success': false
             }
-            deferred.reject(result);
             callback.call(this, result);
-        }.bind(this)
-    );
-    return deferred;
+        });
+    });
+
+    req.write(data);
+    req.end();
 }
 
 // create the Document with a url, concept and score

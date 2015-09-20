@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -X POST --data @test_image.json http://104.131.45.245/items
