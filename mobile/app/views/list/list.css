@@ -14,3 +14,32 @@ TextField {
 Image {
 	margin: 10;
 }
+
+.headerLogo {
+	margin-left: 5;
+}
+
+.expired {
+	color: #BE0000;
+	background-color: #FFBEBE;
+}
+
+.under1day {
+	color: #FF5500;
+	background-color: #FFBE9D;
+}
+
+.under3days {
+	color: #FF9A0D;
+	background-color: #FFD396;
+}
+
+.under5days {
+	color: #FFD000;
+	background-color: #FFED9D;
+}
+
+.above5days {
+	color: #22A000;
+	background-color: #B4FFA0;
+}

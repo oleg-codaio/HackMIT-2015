@@ -1,25 +1,26 @@
 <Page loaded="loaded">
 	<Page.actionBar>
-		<ActionBar title="Groceries">
+		<ActionBar>
+			<NavigationButton text="Logout"/>
 			<ActionBar.actionItems>
 				<ActionItem text="Share" tap="share" ios.position="right" />
+				<ActionItem icon="res://logo_header" ios.position="left" cssClass="headerLogo"/>
 			</ActionBar.actionItems>
 		</ActionBar>
 	</Page.actionBar>
 
-	<GridLayout rows="auto, *" columns="2*, *">
-		<TextField id="grocery" text="{{ grocery }}" hint="Enter a grocery item"
-			row="0" col="0" />
-		<Button text="Add" tap="add"
+	<GridLayout rows="auto, *" columns="*">
+		<Button text="Add Item to Fridge" tap="add"
 			row="0" col="1" />
 
 		<ListView items="{{ groceryList }}" id="groceryList"
 			row="1" colSpan="2">
 			<ListView.itemTemplate>
-				<GridLayout columns="*, auto">
-					<Label text="{{ name }}" />
+				<GridLayout columns="*, *, auto">
+					<Label text="{{ name }}" col="0"/>
+					<Label cssClass="{{ color_class }}" text="{{ expiration_string }}" col="1"/>
 					<Image src="res://ic_menu_delete" ios:visibility="collapsed" tap="delete"
-						col="1" />
+						col="2" />
 				</GridLayout>
 			</ListView.itemTemplate>
 		</ListView>

@@ -19,6 +19,26 @@
 			],
 			"negative_urls": [
 			]
+		},
+		"bananas": {
+			"positive_urls": [
+				"http://www.jaydelovell.com/wp-content/uploads/2015/01/ask-me-about-my-banana.jpg",
+				"https://www.organicfacts.net/wp-content/uploads/2013/05/Banana21.jpg",
+				"http://i.telegraph.co.uk/multimedia/archive/03120/banana_3120781b.jpg",
+				"http://www.residents.com/codgers/page3/files/banana-2.jpg",
+				"http://i2.mirror.co.uk/incoming/article1827482.ece/alternates/s2197/sleep-banana.jpg",
+				"https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Banana.png/836px-Banana.png",
+				"http://bed56888308e93972c04-0dfc23b7b97881dee012a129d9518bae.r34.cf1.rackcdn.com/sites/default/files/imagecache/310_square/bananas_1.jpg",
+				"http://images2.alphacoders.com/436/436243.jpg",
+				"http://blogs.smithsonianmag.com/food/files/2011/07/banana2.jpg",
+				"http://familyforhealth.com/wp-content/uploads/2015/07/Banana_Fruit.jpg",
+				"http://sciencenotes.org/wp-content/uploads/2015/08/Banana.jpg",
+				"http://ibeautycares.com/wp-content/uploads/2014/09/ibeautycares-banana.jpg",
+				"http://i.telegraph.co.uk/multimedia/archive/02144/bananas_intro_2144753b.jpg",
+				"http://i.imgur.com/20IzPm0.jpg"
+			],
+			"negative_urls": [
+			]
 		}
 	}
 }
