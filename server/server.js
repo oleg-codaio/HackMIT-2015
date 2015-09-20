@@ -26,7 +26,11 @@ app.get('/login/:username', function (req, res) {
 // Post a single item.
 // req header must include valid user ID.
 app.post('/items', upload.single('picture'), function (req, res) {
-
+	 // Get picture path
+	 // Pass it to the predictor.getCategoryFromImage function
+	 // Lookup expected expiration times
+	 // Store in DB
+	 // Populate and send response
 });
 
 // Delete a single item.
