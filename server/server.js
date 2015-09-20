@@ -1,18 +1,17 @@
 // Link Files
 var db = require('./database');
-var predictor = require('./predictor')
+var predictor = require('./predictor');
+var constants = require('./constants');
+var bodyParser = require('body-parser');
 
 // Init Express
 var express = require('express');
-var multer = require('multer');
 
 var app = express();
 
-// Public directory and image upload
-app.use(express.static(process.cwd() + '/public'));
-var upload = multer({
-	dest: process.cwd() + '/public/images'
-});
+// Public directory for image upload
+app.use(express.static(constants.imageDir));
+app.use(bodyParser.json());
 
 
 // Root route (ha).
@@ -29,7 +28,7 @@ app.get('/login/:username', function (req, res) {
 
 // Post a single item.
 // req header must include valid user ID.
-app.post('/items', upload.single('picture'), function (req, res) {
+app.post('/items', function (req, res) {
 	 // Get picture path
 	 predictor.handleImageUpload(req, res);
 	 // Lookup expected expiration times

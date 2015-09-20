@@ -22,13 +22,13 @@ function Clarifai(options){
     }
     this.collectionId = options.collectionId || 'default';
     this.nameSpace = options.nameSpace || 'default';
-    this.createCollection(this.collectionId);
+    // this.createCollection(this.collectionId);
 }
 
 // make sure we got what we need in constructor
 Clarifai.prototype.validateConstructor = function(options){
     if(!$){
-        console.error("Please include jQuery on page for clarifai-basic.js to work");
+        // console.error("Please include jQuery on page for clarifai-basic.js to work");
         return false;
     }
     if(!options.accessToken){
@@ -149,6 +149,52 @@ Clarifai.prototype.predict = function(url, concept, callback){
         }.bind(this),
         function(e){
             this.log("Clarifai: Predict on " + concept + " failed", e);
+            var result = {
+                'success': false
+            }
+            deferred.reject(result);
+            callback.call(this, result);
+        }.bind(this)
+    );
+    return deferred;
+}
+
+// CUSTOM - Predicts most likely tag for image
+Clarifai.prototype.predict_top = function(url, callback){
+    var deferred = $.Deferred();
+    var data = {
+        "urls": [url]
+    }
+    $.ajax(
+        {
+            'type': 'POST',
+            'contentType': 'application/json; charset=utf-8',
+            'processData': false,
+            'data': JSON.stringify(data),
+            'url': this.baseUrl + 'curator/models/' + this.nameSpace + '/predict',
+            'headers': {
+                'Authorization': 'Bearer ' + this.accessToken
+            }
+        }  
+    ).then(
+        function(json){
+            if(json.status.status === "OK"){
+                var result = json.urls[0].predictions[0];
+                result.success = true;
+                deferred.resolve(result);
+                if(callback){
+                    callback.call(this, result);
+                }
+            }
+            if(json.status.status === 'ERROR'){
+                var result = {
+                    'success': false
+                }
+                deferred.reject(result);
+                callback.call(this, result);
+            }
+        }.bind(this),
+        function(e){
             var result = {
                 'success': false
             }

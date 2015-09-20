@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "^4.2.0",
-    "multer": "^1.0.5",
+    "body-parser": "^1.14.0",
     "mongodb": "^2.0.43",
     "najax": "^0.2.1",
     "jquery-deferred": "^0.3.0"
