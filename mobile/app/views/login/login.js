@@ -18,7 +18,11 @@ exports.loaded = function(args) {
 		navigationBar.titleTextAttributes = new NSDictionary([UIColor.whiteColor()], [NSForegroundColorAttributeName]);
 		navigationBar.barStyle = 1;
 		navigationBar.tintColor = UIColor.whiteColor();
-	}
+	} else if (page.android) {
+        // TODO(oleg): see if there is a way to hide the action bar here.
+        // frameModule.topmost().android.showActionBar = false;
+        // frameModule.topmost().android.activity.getActionBar().hide();
+    }
 
 	page.bindingContext = user;
 };

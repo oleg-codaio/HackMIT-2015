@@ -1,15 +1,19 @@
 // Link Files
 var db = require('./database');
-var clarifai = require('./clarifai')
+var predictor = require('./predictor')
 
 // Init Express
 var express = require('express');
 var multer = require('multer');
-var upload = multer({
-	dest: 'uploads'
-});
 
 var app = express();
+
+// Public directory and image upload
+app.use(express.static(process.cwd() + '/public'));
+var upload = multer({
+	dest: process.cwd() + '/public/images'
+});
+
 
 // Root route (ha).
 app.get('/', function (req, res) {
@@ -27,7 +31,7 @@ app.get('/login/:username', function (req, res) {
 // req header must include valid user ID.
 app.post('/items', upload.single('picture'), function (req, res) {
 	 // Get picture path
-	 // Pass it to the predictor.getCategoryFromImage function
+	 predictor.handleImageUpload(req, res);
 	 // Lookup expected expiration times
 	 // Store in DB
 	 // Populate and send response
