@@ -36,11 +36,10 @@ exports.loaded = function(args) {
 exports.add = function() {
     // Capture a picture with the system camera.
 	cameraModule.takePicture({
-        width: 500,
-        height: 500,
+        width: 250,
+        height: 250,
         keepAspectRatio: true
     }).then(function(picture) {
-    	debugger;
 	    console.log("Result is an image source instance");
 
         // Send to the server.
