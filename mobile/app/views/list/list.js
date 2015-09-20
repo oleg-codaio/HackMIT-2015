@@ -2,6 +2,8 @@ var dialogsModule = require("ui/dialogs");
 var observableModule = require("data/observable");
 var viewModule = require("ui/core/view");
 var frameModule = require("ui/frame");
+var imageModule = require("ui/image");
+var cameraModule = require("camera");
 
 var socialShare = require("nativescript-social-share");
 var swipeDelete = require("../../shared/utils/ios-swipe-delete");
@@ -24,7 +26,7 @@ exports.loaded = function(args) {
 	}
 	page.bindingContext = pageData;
 	groceryList.empty();
-	pageData.set("isLoading", true);
+	//pageData.set("isLoading", true);
 	groceryList.load();
 	/*
 	groceryList.load().then(function() {
@@ -33,7 +35,13 @@ exports.loaded = function(args) {
 };
 
 exports.add = function() {
+	cameraModule.takePicture().then(function(picture) {
+	    console.log("Result is an image source instance");
+	    var image = new imageModule.Image();
+	    image.imageSource = picture;
+	});
 	// Check for empty submission
+	/*
 	if (pageData.get("grocery").trim() !== "") {
 		viewModule.getViewById(page, "grocery").dismissSoftInput();
 		groceryList.add(pageData.get("grocery"))
@@ -52,7 +60,7 @@ exports.add = function() {
 			message: "Enter a grocery item",
 			okButtonText: "OK"
 		});
-	}
+	} */
 };
 
 exports.share = function() {

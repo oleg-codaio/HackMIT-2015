@@ -1,6 +1,6 @@
-<Page loaded="loaded">
+<Page loaded="loaded" actionBarHidden="true">
 	<StackLayout>
-		<Image src="res://logo_blue" stretch="none" horizontalAlignment="center" />
+		<Image id="logo" src="res://logo_blue" stretch="none" horizontalAlignment="center" />
 		<Image src="res://fridgeman" stretch="none" horizontalAlignment="center" />
 
 		<TextField id="email_address" text="{{ email }}" hint="Email Address" keyboardType="email" />
