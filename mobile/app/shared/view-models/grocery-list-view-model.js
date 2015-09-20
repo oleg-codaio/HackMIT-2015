@@ -10,7 +10,7 @@ function GroceryListViewModel(items) {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-            	"X-User-Id": "12132131"
+            	"X-User-Id": "12131231"
 			}
 		})
 		.then(handleErrors)
