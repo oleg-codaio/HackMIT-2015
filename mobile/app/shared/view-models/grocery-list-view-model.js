@@ -43,12 +43,18 @@ function GroceryListViewModel(items) {
 		.then(function(response) {
 			return response.json();
 		}).then(function(data) {
-            console.log("added picture: " + data);
+            console.log("added picture: " + data.name);
+            viewModel.empty();
             viewModel.push({
                 name: data.name,
                 id: data.id,
                 expiration_date: data.expiration_date
             });
+
+            console.log(viewModel);
+
+
+            viewModel.getList();
 		});
     };
 
@@ -119,7 +125,7 @@ function _getExpirationString(expirationDate) {
 		var countdownObj = countdown(currentTime, expirationDate, countdown.DAYS|countdown.HOURS);
 		return countdownObj.days + "d " + countdownObj.hours + "h";
 	} else {
-		var countdownObj = countdown(currentTime, expirationDate, countdown.MONTHS|countdown.WEEKS|countdown.DAYS);
+		var countdownObj = countdown(currentTime, expirationDate, countdown.WEEKS|countdown.DAYS);
 		return countdownObj.weeks + "w " + countdownObj.days + "d";
 	}
 }
