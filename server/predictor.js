@@ -48,7 +48,7 @@ exports.handleImageUpload = function (req, res) {
 // and passes it to callback in an object with fields score and category.
 // Passes null if no matching category found with score > threshold.
 var classifyImage = function (imageUrl, callback) {
-  clarifai.predict_top(imageUrl, function(obj) {
+  clarifai.predict_top(imageUrl,'apple', function(obj) {
     var result = null;
 
     if (obj.success) {

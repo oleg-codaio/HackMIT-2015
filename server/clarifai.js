@@ -148,6 +148,7 @@ Clarifai.prototype.predict = function(url, concept, callback){
             }
         }.bind(this),
         function(e){
+		console.log(e);
             this.log("Clarifai: Predict on " + concept + " failed", e);
             var result = {
                 'success': false
@@ -161,48 +162,95 @@ Clarifai.prototype.predict = function(url, concept, callback){
 
 // CUSTOM - Predicts most likely tag for image
 Clarifai.prototype.predict_top = function(url, callback){
-    var deferred = $.Deferred();
-    var data = {
-        "urls": [url]
-    }
-    $.ajax(
-        {
-            'type': 'POST',
-            'contentType': 'application/json; charset=utf-8',
-            'processData': false,
-            'data': JSON.stringify(data),
-            'url': this.baseUrl + 'curator/models/' + this.nameSpace + '/predict',
-            'headers': {
-                'Authorization': 'Bearer ' + this.accessToken
-            }
-        }  
-    ).then(
-        function(json){
-            if(json.status.status === "OK"){
-                var result = json.urls[0].predictions[0];
-                result.success = true;
-                deferred.resolve(result);
-                if(callback){
-                    callback.call(this, result);
-                }
-            }
-            if(json.status.status === 'ERROR'){
-                var result = {
-                    'success': false
-                }
-                deferred.reject(result);
-                callback.call(this, result);
-            }
-        }.bind(this),
-        function(e){
-            var result = {
-                'success': false
-            }
-            deferred.reject(result);
-            callback.call(this, result);
-        }.bind(this)
-    );
-    return deferred;
+    // var http = require('https');
+//	http.globalAgent.options.secureProtocol = 'SSLv23_method';
+    var requestLib = require('request');
+
+    var data = JSON.stringify({
+        urls: [url]
+    });
+
+    // var options = {
+    //     host: 'api-alpha.clarifai.com',
+    //     path: 'v1/curator/models/' + this.nameSpace + '/predict',
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer ' + this.accessToken
+    //     }
+    // };
+    var options = {
+        url: 'https://api-alpha.clarifai.com/v1/curator/models/' + this.nameSpace + '/predict',
+	body: data,
+	method: 'POST',
+	json: true,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.accessToken
+        }
+    };
+
+    console.log('sending request');
+	console.log(options);
+    // var req = http.request(options, function(res) {
+    // console.log(res);
+    //     res.setEncoding('utf8');
+    //     res.on('data', function (chunk) {
+    //         json = JSON.parse(chunk);
+    //     	console.log(json)
+
+    //         if(json.status.status === "OK"){
+    //             var result = json.urls[0].predictions[0];
+    //             result.success = true;
+    //             callback.call(this, result);
+    //             return;
+    //         } else {
+    //             var result = {
+    //                 'success': false
+    //             }
+    //             callback.call(this, result);
+    //             return;
+    //         }
+
+    //     });
+    //     
+    //     req.on('error', function(error) {
+    //         var result = {
+    //             'success': false
+    //         }
+    //         callback.call(this, result);
+    //     });
+    // });
+	function callbackFun(error, response, chunk) {
+	    if (!error) {
+		    json = chunk; //JSON.parse(chunk);
+			console.log(json)
+
+		    if(json.status.status === "OK"){
+			var result = json.urls[0].predictions[0];
+			result.success = true;
+			callback.call(this, result);
+			return;
+		    } else {
+			var result = {
+			    'success': false
+			}
+			callback.call(this, result);
+			return;
+		    }
+		} else {
+			console.log(error)
+		    var result = {
+			'success': false
+		    }
+		    callback.call(this, result);
+		}
+	};
+
+	requestLib(options, callbackFun);
+
+    //req.write(data);
+    //req.end();
 }
 
 // create the Document with a url, concept and score
