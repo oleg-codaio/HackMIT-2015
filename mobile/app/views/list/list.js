@@ -4,6 +4,7 @@ var viewModule = require("ui/core/view");
 var frameModule = require("ui/frame");
 var imageModule = require("ui/image");
 var cameraModule = require("camera");
+var http = require("http")
 
 var socialShare = require("nativescript-social-share");
 var swipeDelete = require("../../shared/utils/ios-swipe-delete");
@@ -35,10 +36,19 @@ exports.loaded = function(args) {
 };
 
 exports.add = function() {
-	cameraModule.takePicture().then(function(picture) {
+    // Capture a picture with the system camera.
+	cameraModule.takePicture({
+        width: 500,
+        height: 500,
+        keepAspectRatio: true
+    }).then(function(picture) {
 	    console.log("Result is an image source instance");
-	    var image = new imageModule.Image();
-	    image.imageSource = picture;
+
+        // Encode it as Base64.
+        base64 = picture.toBase64String("jpg", 100);
+
+        // Send to the server.
+        http.getJSON()
 	});
 	// Check for empty submission
 	/*
