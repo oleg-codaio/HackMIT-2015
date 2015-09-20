@@ -5,7 +5,8 @@ var constants = require('./constants');
 // Yes, this is our access token. Go ahead, use it.
 var Clarifai = require('./clarifai');
 var clarifai = new Clarifai({
-  'accessToken': 'o132JLXLqOow4oUksuvQYZEPi3SRtN'
+  'accessToken': 'o132JLXLqOow4oUksuvQYZEPi3SRtN',
+  'collectionId': 'hackmit'
 });
 
 var ACCEPT_THRESHOLD = 0.65;
@@ -18,7 +19,8 @@ exports.handleImageUpload = function (req, res) {
     fs.unlink(req.file.path);
 
     if (matchData === null) {
-      res.send(400, { message: 'Cannot recognize image' });
+      res.status(400).send({ message: 'Cannot recognize image' });
+      return;
     }
 
     var item = {

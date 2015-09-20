@@ -271,7 +271,6 @@ Clarifai.prototype.createCollection = function(collectionId){
         }  
     ).then(
         function(json){
-            console.log(typeof(json));
             if(json.status.status === "OK"){
                 this.log("Clarifai: Collection: '" + collectionId + "' created");
                 this.collectionCreated = true;
