@@ -1,5 +1,5 @@
 var config = require("../../shared/config");
-var countdown = require("../../lib/countdown");
+var countdown = require("../../library/countdown");
 var observableArrayModule = require("data/observable-array");
 
 function GroceryListViewModel(items) {
