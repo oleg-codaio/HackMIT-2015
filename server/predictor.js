@@ -17,12 +17,12 @@ var imageCount = 0;
 
 exports.handleImageUpload = function (req, res) {
   var imageName = imageCount + '.jpg';
-  var imagePath = constants.imageDir + '/' + imageName;
+  var imagePath = constants.imageDir + '/images/' + imageName;
   imageCount++;
 
-  fs.writeFile(imagePath, req.body.image, 'base64', function(err) {
-    console.log(err);
-  });
+  var decodedImage = new Buffer(req.body.image, 'base64');
+  fs.writeFileSync(imagePath, decodedImage);
+
 
   // We are hardcoding the image directory. Bad.
 	classifyImage('http://104.131.45.245/images' + imageName, function(matchData) {
