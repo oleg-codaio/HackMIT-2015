@@ -5,90 +5,70 @@ var observableArrayModule = require("data/observable-array");
 function GroceryListViewModel(items) {
 	var viewModel = new observableArrayModule.ObservableArray(items);
 
-	viewModel.load = function() {
-		viewModel.push({
-			name: "Apples",
-			item_id: 1,
-			id: 1234125,
-			expiration_date: new Date().getTime() - 64800000 // 18 hrs expired
-		});
-		viewModel.push({
-			name: "Bananas",
-			item_id: 2,
-			id: 1234126,
-			expiration_date: new Date().getTime() + 64800000 // 18 hrs til expiration
-		});
-		viewModel.push({
-			name: "Strawberries",
-			item_id: 3,
-			id: 1234127,
-			expiration_date: new Date().getTime() + 172800000 // 2 days til expiration
-		});
-		viewModel.push({
-			name: "Watermelon",
-			item_id: 4,
-			id: 1234128,
-			expiration_date: new Date().getTime() + 345600000 // 4 days til expiration
-		});
-		viewModel.push({
-			name: "Tomatoes",
-			item_id: 5,
-			id: 1234129,
-			expiration_date: new Date().getTime() + 691200000 // 8 days til expiration
-		}); 
-
-		viewModel.forEach(function(item) {
-			
-			item.color_class = _getColorClass(item.expiration_date);
-			item.expiration_string = _getExpirationString(item.expiration_date);
-			console.log(item.color_class);
-			console.log(item.expiration_string); 
-		});
-
-		/*
-		return fetch(config.apiUrl + "Groceries", {
+	viewModel.getList = function() {
+		return fetch(config.apiUrl + "items", {
+			method: "GET",
 			headers: {
-				"Authorization": "Bearer " + config.token
+				"Content-Type": "application/json",
+            	"X-User-Id": config.userId + ""
 			}
 		})
 		.then(handleErrors)
 		.then(function(response) {
 			return response.json();
 		}).then(function(data) {
-			data.Result.forEach(function(grocery) {
-				viewModel.push({
-					name: grocery.Name,
-					id: grocery.Id
-				});
+			data.sort(function(a, b) { return a.expiration_date - b.expiration_date;})
+                .forEach(function(item) {
+                    item.color_class = _getColorClass(item.expiration_date);
+                    item.expiration_string = _getExpirationString(item.expiration_date);
+                    viewModel.push(item);
 			});
-		}); */
-	};
+		});
+    };
 
-	viewModel.empty = function() {
-		while (viewModel.length) {
-			viewModel.pop();
-		}
-	};
+    viewModel.addToList = function(picture) {
+    	console.log("begin");
+        encodedPicture = picture.toBase64String("jpg", 100);
 
-	viewModel.add = function(grocery) {
-		return fetch(config.apiUrl + "Groceries", {
+		return fetch(config.apiUrl + "items", {
 			method: "POST",
 			body: JSON.stringify({
-				Name: grocery
+				image: encodedPicture,
 			}),
 			headers: {
-				"Authorization": "Bearer " + config.token,
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+            	"X-User-Id": config.userId
+			}
+		})
+		.then(handleErrors)
+		.then(function(response) {
+			console.log("asdf");
+			return response.json();
+		}).then(function(data) {
+            console.log("added picture: " + data);
+            viewModel.push({
+                name: data.name,
+                id: data.id,
+                expiration_date: data.expiration_date
+            });
+		});
+    };
+
+    viewModel.removeFromList = function(index) {
+		return fetch(config.apiUrl + "item?id=" + viewModel.getItem(index).id, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+            	"X-User-Id": config.userId
 			}
 		})
 		.then(handleErrors)
 		.then(function(response) {
 			return response.json();
-		})
-		.then(function(data) {
-			viewModel.push({ name: grocery, id: data.Result.Id });
+		}).then(function() {
+            viewModel.splice(index, 1);
 		});
-	};
+    };
 
 	viewModel.delete = function(index) {
 		return fetch(config.apiUrl + "Groceries/" + viewModel.getItem(index).id, {
@@ -104,10 +84,17 @@ function GroceryListViewModel(items) {
 		});
 	};
 
+	viewModel.empty = function() {
+		while (viewModel.length) {
+			viewModel.pop();
+		}
+	};
+
 	return viewModel;
 }
 
 function handleErrors(response) {
+	console.log("error");
 	if (!response.ok) {
 		console.log(JSON.stringify(response));
 		throw Error(response.statusText);

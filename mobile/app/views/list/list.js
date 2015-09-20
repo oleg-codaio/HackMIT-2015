@@ -22,17 +22,15 @@ exports.loaded = function(args) {
 	if (page.ios) {
 		var listView = viewModule.getViewById(page, "groceryList");
 		swipeDelete.enable(listView, function(index) {
-			groceryList.delete(index);
+			groceryList.removeFromList(index);
 		});
 	}
 	page.bindingContext = pageData;
 	groceryList.empty();
-	//pageData.set("isLoading", true);
-	groceryList.load();
-	/*
-	groceryList.load().then(function() {
+	pageData.set("isLoading", true);
+	groceryList.getList().then(function() {
 		pageData.set("isLoading", false);
-	}); */
+	});
 };
 
 exports.add = function() {
@@ -44,11 +42,8 @@ exports.add = function() {
     }).then(function(picture) {
 	    console.log("Result is an image source instance");
 
-        // Encode it as Base64.
-        base64 = picture.toBase64String("jpg", 100);
-
         // Send to the server.
-        http.getJSON()
+        groceryList.addToList(picture);
 	});
 	// Check for empty submission
 	/*

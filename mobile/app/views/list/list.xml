@@ -19,7 +19,7 @@
 				<GridLayout columns="*, *, auto">
 					<Label text="{{ name }}" col="0"/>
 					<Label cssClass="{{ color_class }}" text="{{ expiration_string }}" col="1"/>
-					<Image src="res://ic_menu_delete" ios:visibility="collapsed" tap="delete"
+					<Image src="res://ic_menu_delete" ios:visibility="collapsed" tap="removeFromList"
 						col="2" />
 				</GridLayout>
 			</ListView.itemTemplate>
