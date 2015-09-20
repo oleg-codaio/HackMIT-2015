@@ -3,8 +3,9 @@ var db = require('./database');
 var constants = require('./constants');
 
 // Yes, this is our access token. Go ahead, use it.
-var clarifai = new require('./clarifai')({
-  'accessToken': 'KfRnamoEaqQTQPI1SFrieGOpivvAdW'
+var Clarifai = require('./clarifai');
+var clarifai = new Clarifai({
+  'accessToken': 'o132JLXLqOow4oUksuvQYZEPi3SRtN'
 });
 
 var ACCEPT_THRESHOLD = 0.65;

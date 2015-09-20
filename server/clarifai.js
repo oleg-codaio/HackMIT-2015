@@ -1,4 +1,6 @@
-var $ = require('jquery');
+var $ = {};
+$.ajax = require('najax');
+$.Deferred = require('jquery-deferred').Deferred;
 
 function Clarifai(options){
     var validate = this.validateConstructor(options);
@@ -264,6 +266,7 @@ Clarifai.prototype.createCollection = function(collectionId){
         }  
     ).then(
         function(json){
+            console.log(typeof(json));
             if(json.status.status === "OK"){
                 this.log("Clarifai: Collection: '" + collectionId + "' created");
                 this.collectionCreated = true;

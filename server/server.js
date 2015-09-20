@@ -6,13 +6,14 @@ var predictor = require('./predictor')
 var express = require('express');
 var multer = require('multer');
 
+var app = express();
+
 // Public directory and image upload
 app.use(express.static(process.cwd() + '/public'));
 var upload = multer({
 	dest: process.cwd() + '/public/images'
 });
 
-var app = express();
 
 // Root route (ha).
 app.get('/', function (req, res) {
