@@ -61,6 +61,6 @@ var classifyImage = function (imageUrl, callback) {
       if (results.length == categories.length) {
         callback(currentBest);
       }
-    }
+    });
   }
 }
