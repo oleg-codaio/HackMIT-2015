@@ -14,7 +14,7 @@ import uuid
 
 from clarifai.client import ClarifaiApi, ApiError, ApiBadRequestError
 from clarifai.client.client import API_VERSION
-from request_helper import CuratorApiRequestHelper
+from .request_helper import CuratorApiRequestHelper
 
 
 def request(name, method='GET'):
