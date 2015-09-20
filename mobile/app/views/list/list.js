@@ -1,6 +1,7 @@
 var dialogsModule = require("ui/dialogs");
 var observableModule = require("data/observable");
 var viewModule = require("ui/core/view");
+var frameModule = require("ui/frame");
 
 var socialShare = require("nativescript-social-share");
 var swipeDelete = require("../../shared/utils/ios-swipe-delete");
@@ -24,9 +25,11 @@ exports.loaded = function(args) {
 	page.bindingContext = pageData;
 	groceryList.empty();
 	pageData.set("isLoading", true);
+	groceryList.load();
+	/*
 	groceryList.load().then(function() {
 		pageData.set("isLoading", false);
-	});
+	}); */
 };
 
 exports.add = function() {
