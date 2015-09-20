@@ -10,7 +10,7 @@ var clarifai = new Clarifai({
   nameSpace: 'hackathon'
 });
 
-var ACCEPT_THRESHOLD = 0.65;
+var ACCEPT_THRESHOLD = 0.1;
 // Ensures unique names for images
 var imageCount = 0;
 
@@ -35,7 +35,7 @@ exports.handleImageUpload = function (req, res) {
     }
 
     var item = {
-      expirationDate: new Date(Date.now() + constants.expectedExpiration(matchData.category)),
+      expirationDate: Date.now() + constants.expectedExpiration(matchData.category),
       category: matchData.category
     };
 
@@ -48,10 +48,12 @@ exports.handleImageUpload = function (req, res) {
 // and passes it to callback in an object with fields score and category.
 // Passes null if no matching category found with score > threshold.
 var classifyImage = function (imageUrl, callback) {
-  clarifai.predict_top(imageUrl,'apple', function(obj) {
+  clarifai.predict_top(imageUrl,function(obj) {
+console.log(obj)
     var result = null;
 
     if (obj.success) {
+console.log("success");
       result = {
         score: obj.score,
         category: obj.cname
@@ -59,6 +61,7 @@ var classifyImage = function (imageUrl, callback) {
     }
 
     if (result && result.score >= ACCEPT_THRESHOLD) {
+console.log(result);
       callback(result);
     }
     else {

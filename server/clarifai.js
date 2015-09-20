@@ -161,13 +161,13 @@ Clarifai.prototype.predict = function(url, concept, callback){
 }
 
 // CUSTOM - Predicts most likely tag for image
-Clarifai.prototype.predict_top = function(url, callback){
+Clarifai.prototype.predict_top = function(url, iCallback){
     // var http = require('https');
 //	http.globalAgent.options.secureProtocol = 'SSLv23_method';
     var requestLib = require('request');
 
     var data = JSON.stringify({
-        urls: [url]
+        urls: []
     });
 
     // var options = {
@@ -181,9 +181,9 @@ Clarifai.prototype.predict_top = function(url, callback){
     // };
     var options = {
         url: 'https://api-alpha.clarifai.com/v1/curator/models/' + this.nameSpace + '/predict',
-	body: data,
 	method: 'POST',
 	json: true,
+	body: {urls: ['http://www.clarifai.com/static/img_ours/metro-north.jpg']},
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + this.accessToken
@@ -224,18 +224,18 @@ Clarifai.prototype.predict_top = function(url, callback){
 	function callbackFun(error, response, chunk) {
 	    if (!error) {
 		    json = chunk; //JSON.parse(chunk);
-			console.log(json)
+			console.log(json.urls[0].predictions[0])
 
 		    if(json.status.status === "OK"){
 			var result = json.urls[0].predictions[0];
 			result.success = true;
-			callback.call(this, result);
+			iCallback.call(this, result);
 			return;
 		    } else {
 			var result = {
 			    'success': false
 			}
-			callback.call(this, result);
+			iCallback.call(this, result);
 			return;
 		    }
 		} else {
@@ -243,7 +243,7 @@ Clarifai.prototype.predict_top = function(url, callback){
 		    var result = {
 			'success': false
 		    }
-		    callback.call(this, result);
+		    iCallback( result);
 		}
 	};
 
