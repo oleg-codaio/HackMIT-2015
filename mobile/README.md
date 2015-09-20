@@ -1,4 +1,9 @@
-# Groceries
+# FridgeBouncer
+
+This is a hackathon project based on the NativeScript grocery demo, so a lot of stuff is left over. Sry.
+
+Old stuff
+---------
 
 Groceries is a NativeScript-built iOS and Android app for managing grocery lists.
 

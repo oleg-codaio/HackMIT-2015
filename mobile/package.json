@@ -1,20 +1,20 @@
 {
-	"name": "Groceries",
+	"name": "FridgeBouncer",
 	"version": "1.0.0",
-	"description": "A NativeScript-built iOS and Android app for managing grocery lists",
+	"description": "Created for HackMIT 2015, FridgeBouncer uses advanced computer vision and machine learning technology to help you keep track of what's in your fridge, whether it's reminding you to throw out the old eggs in the back of the bottom shelf, or making it easier for you to access your real-time shopping list on the go.",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nativescript/sample-Groceries.git"
+		"url": "https://github.com/FridgeBouncer/HackMIT-2015"
 	},
 	"keywords": [
 		"NativeScript"
 	],
-	"author": "TJ VanToll <tj.vantoll@gmail.com> (http://tjvantoll.com/)",
+	"author": "Oleg Vaskevich, Kevin Yang, Cameron Sun, Constantin Gizdarski",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/nativescript/sample-Groceries/issues"
+		"url": "https://github.com/ovaskevich/HackMIT-2015/issues"
 	},
-	"homepage": "https://github.com/nativescript/sample-Groceries/groceries",
+	"homepage": "https://github.com/ovaskevich/HackMIT-2015",
 	"devDependencies": {
 		"gulp": "^3.9.0",
 		"gulp-jscs": "^1.6.0",
