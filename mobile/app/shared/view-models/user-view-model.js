@@ -25,7 +25,7 @@ function User(info) {
 		.then(function(response) {
 			return response.json();
 		}).then(function(data) {
-            console.log("Logged in as user " + user + ": " + data);
+            console.log("Logged in as user " + user + ": " + data.username);
 			config.userId = data.user;
 		});
 	};

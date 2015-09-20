@@ -36,8 +36,8 @@ exports.loaded = function(args) {
 exports.add = function() {
     // Capture a picture with the system camera.
 	cameraModule.takePicture({
-        width: 500,
-        height: 500,
+        width: 250,
+        height: 250,
         keepAspectRatio: true
     }).then(function(picture) {
 	    console.log("Result is an image source instance");
@@ -71,7 +71,8 @@ exports.add = function() {
 exports.share = function() {
 	var list = [];
 	for (var i = 0, size = groceryList.length; i < size ; i++) {
-		list.push(groceryList.getItem(i).name);
+		item = groceryList.getItem(i);
+		list.push(item.name + ": " + item.expiration_string);
 	}
 	var listString = list.join(", ").trim();
 	socialShare.shareText(listString);

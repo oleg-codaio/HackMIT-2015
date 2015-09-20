@@ -10,7 +10,7 @@ function GroceryListViewModel(items) {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-            	"X-User-Id": config.userId + ""
+            	"X-User-Id": "12131231"
 			}
 		})
 		.then(handleErrors)
@@ -27,8 +27,7 @@ function GroceryListViewModel(items) {
     };
 
     viewModel.addToList = function(picture) {
-    	console.log("begin");
-        encodedPicture = picture.toBase64String("jpg", 100);
+        encodedPicture = picture.toBase64String("jpeg", 100);
 
 		return fetch(config.apiUrl + "items", {
 			method: "POST",
@@ -37,52 +36,42 @@ function GroceryListViewModel(items) {
 			}),
 			headers: {
 				"Content-Type": "application/json",
-            	"X-User-Id": config.userId
+            	"X-User-Id": "12131231"
 			}
 		})
 		.then(handleErrors)
 		.then(function(response) {
-			console.log("asdf");
 			return response.json();
 		}).then(function(data) {
-            console.log("added picture: " + data);
+            console.log("added picture: " + data.name);
+            viewModel.empty();
             viewModel.push({
                 name: data.name,
                 id: data.id,
                 expiration_date: data.expiration_date
             });
+
+            console.log(viewModel);
+
+            viewModel.getList();
 		});
     };
 
     viewModel.removeFromList = function(index) {
-		return fetch(config.apiUrl + "item?id=" + viewModel.getItem(index).id, {
+		return fetch(config.apiUrl + "items/" + viewModel.getItem(index).itemID, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
-            	"X-User-Id": config.userId
+            	"X-User-Id": "12131231"
 			}
 		})
 		.then(handleErrors)
 		.then(function(response) {
 			return response.json();
 		}).then(function() {
-            viewModel.splice(index, 1);
+            viewModel.getList();
 		});
     };
-
-	viewModel.delete = function(index) {
-		return fetch(config.apiUrl + "Groceries/" + viewModel.getItem(index).id, {
-			method: "DELETE",
-			headers: {
-				"Authorization": "Bearer " + config.token,
-				"Content-Type": "application/json"
-			}
-		})
-		.then(handleErrors)
-		.then(function() {
-			viewModel.splice(index, 1);
-		});
-	};
 
 	viewModel.empty = function() {
 		while (viewModel.length) {
@@ -135,7 +124,7 @@ function _getExpirationString(expirationDate) {
 		var countdownObj = countdown(currentTime, expirationDate, countdown.DAYS|countdown.HOURS);
 		return countdownObj.days + "d " + countdownObj.hours + "h";
 	} else {
-		var countdownObj = countdown(currentTime, expirationDate, countdown.MONTHS|countdown.WEEKS|countdown.DAYS);
+		var countdownObj = countdown(currentTime, expirationDate, countdown.WEEKS|countdown.DAYS);
 		return countdownObj.weeks + "w " + countdownObj.days + "d";
 	}
 }

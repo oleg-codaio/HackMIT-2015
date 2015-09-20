@@ -4,7 +4,7 @@ var viewModule = require("ui/core/view");
 var UserViewModel = require("../../shared/view-models/user-view-model");
 
 var user = new UserViewModel({
-	email: "yang.k@me.com",
+	email: "yangk",
 	password: "baseball"
 });
 
@@ -30,7 +30,6 @@ exports.loaded = function(args) {
 exports.signIn = function() {
 	user.login()
 		.then(function() {
-			debugger;
 			frameModule.topmost().navigate("views/list/list");
 		}).catch(function(error) {
 			console.log(error);
