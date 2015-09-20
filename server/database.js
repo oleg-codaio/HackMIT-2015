@@ -65,7 +65,7 @@ exports.getIDForUsername = function (username, res) {
 // Get Items.
 // Gets all items out of the database for a given user ID.
 exports.getItems = function (id, res) {
-	items.find({id: id}).toArray(function (err, data) {
+	items.find({id: id}).sort({ expirationDate: -1 }).toArray(function (err, data) {
 		if (err) throw err;
 		res.send(data);
 	});
