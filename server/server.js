@@ -1,6 +1,10 @@
+// Link Files
+var db = require('./database');
+var clarifai = require('./clarifai')
+
+// Init Express
 var express = require('express');
 var app = express();
-var db = require('./database');
 
 // Root route (ha).
 app.get('/', function (req, res) {
@@ -17,20 +21,20 @@ app.get('/login/:username', function (req, res) {
 // Post a single item.
 // req header must include valid user ID.
 app.post('/items', function (req, res) {
-
+	clarifai.handleImageUpload(req, res);
 });
 
 // Delete a single item.
 // req header must include valid user ID. 
 app.delete('/items', function (req, res) {
-
+	db.deleteItem(req.params.id, req.params.itemid, res);
 });
 
 
 // Get all items.
 // req header must include valid user ID.
 app.get('/items', function (req, res) {
-
+	db.getItems(req.id, res);
 });
 
 // Mongo is running on: http://localhost:27017

@@ -1,14 +1,12 @@
 <Page loaded="loaded">
-	<Page.actionBar>
-		<ActionBar title="Sign in"></ActionBar>
-	</Page.actionBar>
 	<StackLayout>
-		<Image src="res://logo" stretch="none" horizontalAlignment="center" />
+		<Image src="res://logo_blue" stretch="none" horizontalAlignment="center" />
+		<Image src="res://fridgeman" stretch="none" horizontalAlignment="center" />
 
 		<TextField id="email_address" text="{{ email }}" hint="Email Address" keyboardType="email" />
-		<TextField secure="true" text="{{ password }}" hint="Password" />
+		<TextField id="password" secure="true" text="{{ password }}" hint="Password" />
 
 		<Button text="Sign in" tap="signIn" />
-		<Button text="Sign up for Groceries" tap="register" cssClass="link" />
+		<Button text="Sign up for FridgeBouncer" tap="register" />
 	</StackLayout>
 </Page>
