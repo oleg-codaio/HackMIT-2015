@@ -148,6 +148,7 @@ Clarifai.prototype.predict = function(url, concept, callback){
             }
         }.bind(this),
         function(e){
+		console.log(e);
             this.log("Clarifai: Predict on " + concept + " failed", e);
             var result = {
                 'success': false
@@ -161,54 +162,95 @@ Clarifai.prototype.predict = function(url, concept, callback){
 
 // CUSTOM - Predicts most likely tag for image
 Clarifai.prototype.predict_top = function(url, callback){
-    var http = require('http');
+    // var http = require('https');
+//	http.globalAgent.options.secureProtocol = 'SSLv23_method';
+    var requestLib = require('request');
 
     var data = JSON.stringify({
         urls: [url]
     });
 
+    // var options = {
+    //     host: 'api-alpha.clarifai.com',
+    //     path: 'v1/curator/models/' + this.nameSpace + '/predict',
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer ' + this.accessToken
+    //     }
+    // };
     var options = {
-        host: this.baseUrl,
-        port: 80,
-        path: 'curator/models/' + this.nameSpace + '/predict',
-        method: 'POST',
+        url: 'https://api-alpha.clarifai.com/v1/curator/models/' + this.nameSpace + '/predict',
+	body: data,
+	method: 'POST',
+	json: true,
         headers: {
             'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(data)
+            'Authorization': 'Bearer ' + this.accessToken
         }
     };
 
-    var req = http.request(options, function(res) {
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            json = JSON.parse(chunk);
+    console.log('sending request');
+	console.log(options);
+    // var req = http.request(options, function(res) {
+    // console.log(res);
+    //     res.setEncoding('utf8');
+    //     res.on('data', function (chunk) {
+    //         json = JSON.parse(chunk);
+    //     	console.log(json)
 
-            if(json.status.status === "OK"){
-                var result = json.urls[0].predictions[0];
-                result.success = true;
-                callback.call(this, result);
-                return;
-            }
-            if(json.status.status === 'ERROR'){
-                var result = {
-                    'success': false
-                }
-                callback.call(this, result);
-                return;
-            }
+    //         if(json.status.status === "OK"){
+    //             var result = json.urls[0].predictions[0];
+    //             result.success = true;
+    //             callback.call(this, result);
+    //             return;
+    //         } else {
+    //             var result = {
+    //                 'success': false
+    //             }
+    //             callback.call(this, result);
+    //             return;
+    //         }
 
-        });
-        
-        req.on('error', function(error) {
-            var result = {
-                'success': false
-            }
-            callback.call(this, result);
-        });
-    });
+    //     });
+    //     
+    //     req.on('error', function(error) {
+    //         var result = {
+    //             'success': false
+    //         }
+    //         callback.call(this, result);
+    //     });
+    // });
+	function callbackFun(error, response, chunk) {
+	    if (!error) {
+		    json = chunk; //JSON.parse(chunk);
+			console.log(json)
 
-    req.write(data);
-    req.end();
+		    if(json.status.status === "OK"){
+			var result = json.urls[0].predictions[0];
+			result.success = true;
+			callback.call(this, result);
+			return;
+		    } else {
+			var result = {
+			    'success': false
+			}
+			callback.call(this, result);
+			return;
+		    }
+		} else {
+			console.log(error)
+		    var result = {
+			'success': false
+		    }
+		    callback.call(this, result);
+		}
+	};
+
+	requestLib(options, callbackFun);
+
+    //req.write(data);
+    //req.end();
 }
 
 // create the Document with a url, concept and score
