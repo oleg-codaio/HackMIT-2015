@@ -1,5 +1,4 @@
 // Link Files
-var clarifai = require('./clarifai');
 var dur = require('./durability');
 
 // Retrieve MongoClient

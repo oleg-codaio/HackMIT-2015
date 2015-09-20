@@ -1,15 +1,34 @@
 var fs = require('fs');
-var db = require('./database')
+var db = require('./database');
+var constants = require('./constants');
+
+// Yes, this is our access token. Go ahead, use it.
+var clarifai = new require('./clarifai')({
+  'accessToken': 'KfRnamoEaqQTQPI1SFrieGOpivvAdW'
+});
 
 var ACCEPT_THRESHOLD = 0.65;
 
 
 exports.handleImageUpload = function (req, res) {
-	// Send URL for classification - watch out for async.
-	classifyImage(req.file.path, function(imageType) {
-    
+  // We are hardcoding the image directory. Bad.
+	classifyImage('http://104.131.45.245/images' + req.file.filename, function(matchData) {
+    // Delete our temp stored image
+    fs.unlink(req.file.path);
+
+    if (matchData === null) {
+      res.send(400, { message: 'Cannot recognize image' });
+    }
+
+    var item = {
+      expirationDate: new Date(Date.now() + constants.expectedExpiration(matchData.category)),
+      category: matchData.category
+    };
+
+    // TODO Add item to database
+
+    res.send(item);
   });
-	//db.addItem();
 }
 
 // Tries to find a matching category for a given image
@@ -20,10 +39,14 @@ var classifyImage = function (imageUrl, callback) {
   var resultsCount = 0;
   var currentBest = null;
 
+  var categories = Object.keys(constants.categories);
+
   // Slow, but api doesn't really provide any better ways for
   // handling this currently
   for (var i = 0; i < categories.length; i++) {
     clarifai.predict(imageUrl, categories[i], function(obj) {
+      resultsCount++;
+
       if (obj.success) {
         var result = {
           score: obj.score,
@@ -34,8 +57,6 @@ var classifyImage = function (imageUrl, callback) {
           currentBest = result;
         }
       }
-
-      resultsCount++;
 
       if (results.length == categories.length) {
         callback(currentBest);

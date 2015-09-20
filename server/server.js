@@ -5,8 +5,11 @@ var predictor = require('./predictor')
 // Init Express
 var express = require('express');
 var multer = require('multer');
+
+// Public directory and image upload
+app.use(express.static(process.cwd() + '/public'));
 var upload = multer({
-	dest: 'uploads'
+	dest: process.cwd() + '/public/images'
 });
 
 var app = express();
