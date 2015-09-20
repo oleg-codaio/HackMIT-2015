@@ -4,7 +4,8 @@
   "dependencies": {
     "express": "^4.2.0",
     "multer": "^1.0.5",
-    "mongodb": "^2.0.43"
+    "mongodb": "^2.0.43",
+    "jquery": "^2.1.4"
   },
   "private": true
 }

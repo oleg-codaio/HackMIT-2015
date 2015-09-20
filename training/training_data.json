@@ -1,6 +1,6 @@
 {
 	"concepts": {
-		"apple": {
+		"apples": {
 			"positive_urls": [
 				"http://thekissters.files.wordpress.com/2010/09/pink_lady_apple21.jpg",
 				"https://upload.wikimedia.org/wikipedia/en/f/fc/Braeburn2008.jpg",
@@ -15,7 +15,11 @@
 				"http://ecodynamiclivingsolutions.com/wp-content/uploads/2011/10/granite_apple.jpg",
 				"http://l1.alamy.com/thumbs/4/16a5754f-3495-407d-a40b-a09b2c941eeb/AHFEDF.jpg",
 				"http://www.coxtechnic.com/data/uploads/bruise%20apple.jpg",
-				"https://parablesbymish.files.wordpress.com/2014/04/bruised-apple.jpg"
+				"https://parablesbymish.files.wordpress.com/2014/04/bruised-apple.jpg",
+				"https://upload.wikimedia.org/wikipedia/commons/2/27/Rubens_apples_on_plate.jpg",
+				"http://www.michaelducharme.com/wp/wp-content/uploads/2014/09/apples_1.jpg",
+				"http://autumnhillsorchard.com/wp-content/uploads/2013/09/gala-apples.jpg",
+				"http://www.chocolatefountainhouston.com/wp-content/uploads/2011/06/apples-Houston-party.jpg"
 			],
 			"negative_urls": [
 			]
@@ -39,6 +43,44 @@
 			],
 			"negative_urls": [
 			]
-		}
+		},
+		"clementines": {
+			"positive_urls": [
+				"http://rlv.zcache.com/clementine_orange_sticker-rf8be37e48239456fbaeb043d08698eea_v9waf_8byvr_324.jpg",
+				"http://static.caloriecount.about.com/images/medium/cuties-clementine-mandarin-orange-182714.jpg",
+				"https://c1.staticflickr.com/3/2160/2066239072_82d49370d8.jpg",
+				"http://frecklesprinkle.files.wordpress.com/2012/03/img_1358.jpg",
+				"https://c2.staticflickr.com/8/7391/11317796784_7e5b767b80_b.jpg",
+				"http://fruitmaven.com/wp-content/gallery/clementine-cuties/clementine-cuties.jpg",
+				"http://3.bp.blogspot.com/-Pc-Iwpk1bFw/TvlL6gJQfdI/AAAAAAAAAak/-2fsI6vERvU/s1600/blog.clementinecutiesinbox.jpg",
+				"https://nutritionnoir.files.wordpress.com/2013/01/clementine-2.jpg",
+				"http://www.lgssales.com/wp-content/uploads/clementine5lbbox.jpg",
+				"http://www.tablespoon.com/-/media/Images/Articles/tfa/2011/01/2011-01-31-clementinecocktail1-500w.jpg",
+				"http://upload.wikimedia.org/wikipedia/commons/4/4c/Tangerine_2009-03-11.jpg",
+				"http://yummyplants.com/wp-content/uploads/2014/01/cuties.jpg"
+			],
+			"negative_urls": [
+			]
+		},
+		"bread": {
+			"positive_urls": [
+				"http://pinchmysalt.com/wp-content/uploads/2010/02/IMG_8325-Version-2-1.jpg",
+				"http://upload.wikimedia.org/wikipedia/commons/1/1e/Sliced_bread_bag2.jpg",
+				"http://www.raininghotcoupons.com/wp-content/uploads/2013/09/nature.jpeg",
+				"http://3.bp.blogspot.com/-qv2XpXDH1Es/ToSiVTRgmsI/AAAAAAAACIk/7E4fYfvNhv0/s1600/bread.png",
+				"http://www.panogoldpics.com/fulljpg/154_7073377909_CH_b.jpg",
+				"http://www.commcraft.com/Packaging/PecanBread-310-wide.jpg",
+				"http://www.thegreatbritishdiet.co.uk/Images/Kingsmill_WholemealBread_PackagingTop&Side%20(4).JPG",
+				"https://m2.behance.net/rendition/pm/1500229/disp/e09795c971c31fdc1339cbd160de49a3.png",
+				"https://upload.wikimedia.org/wikipedia/en/f/f3/Wonder_Bread.JPG",
+				"http://static.caloriecount.about.com/images/medium/wonder-white-whole-grain-61166.jpg",
+				"http://media.vocativ.com/photos/2015/01/whitebread1649027992.jpg",
+				"http://static.caloriecount.about.com/images/medium/wonder-enriched-white-bread-61124.jpg",
+				"http://static.caloriecount.about.com/images/medium/wonder-country-italian-bread-61202.jpg",
+				"http://4.bp.blogspot.com/-r2-MPg439TQ/U6wwH5kHgTI/AAAAAAAAejU/d_cHeQBlH6Q/s1600/wonderbread.jpg"
+			],
+			"negative_urls": [
+			]
+		}	
 	}
 }

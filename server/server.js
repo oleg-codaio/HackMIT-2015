@@ -1,6 +1,6 @@
 // Link Files
 var db = require('./database');
-var clarifai = require('./clarifai')
+var predictor = require('./predictor')
 
 // Init Express
 var express = require('express');
@@ -27,8 +27,7 @@ app.get('/login/:username', function (req, res) {
 // req header must include valid user ID.
 app.post('/items', upload.single('picture'), function (req, res) {
 	 // Get picture path
-	 clarifai.handleImageUpload(req, res);
-	 // Pass it to the predictor.getCategoryFromImage function
+	 predictor.handleImageUpload(req, res);
 	 // Lookup expected expiration times
 	 // Store in DB
 	 // Populate and send response

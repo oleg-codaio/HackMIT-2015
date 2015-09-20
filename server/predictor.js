@@ -1,9 +1,21 @@
+var fs = require('fs');
+var db = require('./database')
+
 var ACCEPT_THRESHOLD = 0.65;
+
+
+exports.handleImageUpload = function (req, res) {
+	// Send URL for classification - watch out for async.
+	classifyImage(req.file.path, function(imageType) {
+    
+  });
+	//db.addItem();
+}
 
 // Tries to find a matching category for a given image
 // and passes it to callback in an object with fields score and category.
 // Passes null if no matching category found with score > threshold.
-function getCategoryFromImage(imageUrl, callback) {
+var classifyImage = function (imageUrl, callback) {
   // Stores objects for each image / category with results of prediction
   var resultsCount = 0;
   var currentBest = null;
